@@ -27,6 +27,16 @@
                         </div>
                         <div class="form-group">
                             <div class="input-group">
+                                <input name="liability" type="text" class="form-control" placeholder="Responsabilidad" ngModel>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                      <i class="fa fa-check-circle"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
                                 <input name="password" type="password" class="form-control" placeholder="Password" ngModel required>
                                 <div class="input-group-append">
                                     <span class="input-group-text">
@@ -36,7 +46,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-primary submit-btn btn-block" [disabled]="f.invalid">Crear cuenta</button>
+                            <button class="btn btn-primary submit-btn btn-block" [disabled]="f.invalid" *ngIf="!isLoading">Crear cuenta</button>
+                            <button class="btn btn-primary submit-btn btn-block" disabled *ngIf="isLoading">
+                              <i class="fa fa-spin fa-sync"></i>
+                              Por favor espere...
+                            </button>
                         </div>
                         <div class="text-block text-center my-3">
                             <span class="text-small font-weight-semibold">ya tienes una cuenta?</span>
