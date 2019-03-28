@@ -10,6 +10,3 @@ export class SetUserAction implements Action {
 }
 
 export type actions = SetUserAction;
-
-
-

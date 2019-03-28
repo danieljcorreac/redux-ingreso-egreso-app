@@ -3,6 +3,8 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
+import { filter } from 'rxjs/operators';
+import { IncomeExpenseService } from '../../income-expense/income-expense.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,12 +18,19 @@ export class SidebarComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(private authService: AuthService,
+              private incomeExpenseService: IncomeExpenseService,
               private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.subscription = this.store.select('auth').subscribe(auth => {
-      this.userName = auth.isAuthenticated ? auth.user.name : null;
-      this.liability = auth.isAuthenticated ? auth.user.liability : null;
+    this.subscription = this
+                          .store
+                          .select('auth')
+                          .pipe(
+                            filter(auth => auth.isAuthenticated)
+                          )
+                          .subscribe(auth => {
+      this.userName = auth.user.name;
+      this.liability = auth.user.liability;
     });
   }
 
@@ -32,6 +41,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   logout() {
+    this.incomeExpenseService.unsubscribes();
     this.authService.logout();
   }
 }

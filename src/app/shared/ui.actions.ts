@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
-export const ACTIVATE_LOADING = '[UI Loading] Cargado...';
-export const DEACTIVATE_LOADING = '[UI Loading] Fin de carga...';
+export const ACTIVATE_LOADING = '[UI Loading] Loading...';
+export const DEACTIVATE_LOADING = '[UI Loading] End loading...';
 
 export class ActivateLoadingAction implements Action {
   readonly type = ACTIVATE_LOADING;

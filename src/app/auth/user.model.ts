@@ -1,12 +1,10 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-
 export class User {
   public name: string;
   public email: string;
   public liability: string;
   public uid: string;
 
-  constructor(user: FirebaseUser) {
+  constructor(user: DBUser) {
     this.name = user && user.name || null;
     this.email = user && user.email || null;
     this.liability = user && user.liability || null;
@@ -14,7 +12,7 @@ export class User {
   }
 }
 
-export interface FirebaseUser {
+export interface DBUser {
   name: string;
   email: string;
   liability: string;

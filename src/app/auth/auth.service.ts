@@ -4,18 +4,19 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { map } from 'rxjs/operators';
-import { User, FirebaseUser } from './user.model';
+import { User, DBUser } from './user.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.reducer';
 import { ActivateLoadingAction, DeactivateLoadingAction } from '../shared/ui.actions';
 import { SetUserAction } from './auth.actions';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private user: User;
   private userSubscription: Subscription;
 
   constructor(private afAuth: AngularFireAuth,
@@ -23,18 +24,20 @@ export class AuthService {
               private router: Router,
               private store: Store<AppState>) { }
 
-  initAutListener() {
+  initAuthListener() {
     this.afAuth.authState.subscribe(fbUser => {
       if (fbUser) {
         this.userSubscription = this
           .afDB
           .doc(`${fbUser.uid}/user`)
           .valueChanges()
-          .subscribe((user: FirebaseUser) => {
+          .subscribe((user: DBUser) => {
             const newUser = new User(user);
             this.store.dispatch(new SetUserAction(newUser));
+            this.user = newUser;
           });
       } else {
+        this.user = null;
         if (this.userSubscription && !this.userSubscription.closed) {
           this.userSubscription.unsubscribe();
         }
@@ -131,7 +134,7 @@ export class AuthService {
       });
   }
 
-  isAuthenticated() {
+  isAuthenticated(): Observable<boolean> {
     return this.afAuth.authState.pipe(
       map(fbUser => {
         const isAuthenticated = fbUser !== null;
@@ -141,5 +144,9 @@ export class AuthService {
         return isAuthenticated;
       })
     );
+  }
+
+  getUser(): User {
+    return {...this.user};
   }
 }

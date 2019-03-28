@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { EstadisticaComponent } from '../ingreso-egreso/estadistica/estadistica.component';
-import { IngresoEgresoComponent } from '../ingreso-egreso/ingreso-egreso.component';
-import { DetalleComponent } from '../ingreso-egreso/detalle/detalle.component';
+import { IncomeExpenseComponent } from '../income-expense/income-expense.component';
+import { DetailComponent } from '../income-expense/detail/detail.component';
+import { StatisticComponent } from '../income-expense/statistic/statistic.component';
 
 export const dashboardRoutes: Routes = [
-  { path: '', component: EstadisticaComponent },
-  { path: 'ingreso-egreso', component: IngresoEgresoComponent },
-  { path: 'detalle', component: DetalleComponent },
+  { path: '', component: StatisticComponent },
+  { path: 'income-expenses', component: IncomeExpenseComponent },
+  { path: 'detail', component: DetailComponent },
 ];
