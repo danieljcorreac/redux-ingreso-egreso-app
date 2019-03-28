@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Store } from '@ngrx/store';
-import { AppState } from '../app.reducer';
+import * as fromIncomeExpense from './income-expense.reducer';
 import { ActivateLoadingAction, DeactivateLoadingAction } from '../shared/ui.actions';
 import Swal from 'sweetalert2';
 import { IncomeExpense, DBIncomeExpense } from './income-expense.model';
@@ -21,7 +21,7 @@ export class IncomeExpenseService {
 
   constructor(private afDB: AngularFirestore,
               private authService: AuthService,
-              private store: Store<AppState>) { }
+              private store: Store<fromIncomeExpense.AppState>) { }
 
     initIncomeExpenseListener() {
       this.authSubscription = this

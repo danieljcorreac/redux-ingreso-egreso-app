@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IncomeExpense } from './income-expense.model';
 import { IncomeExpenseService } from './income-expense.service';
 import { Store } from '@ngrx/store';
-import { AppState } from '../app.reducer';
+import * as fromIncomeExpense from './income-expense.reducer';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -19,7 +19,7 @@ export class IncomeExpenseComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(private incomeExpenseService: IncomeExpenseService,
-              private store: Store<AppState>) { }
+              private store: Store<fromIncomeExpense.AppState>) { }
 
   ngOnInit() {
     this.subscription = this.store.select('ui').subscribe(ui => {

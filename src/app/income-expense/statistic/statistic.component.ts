@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../app.reducer';
+import * as fromIncomeExpense from '../income-expense.reducer';
 import { IncomeExpense } from '../income-expense.model';
 import { Color } from 'ng2-charts';
 
@@ -26,7 +26,7 @@ export class StatisticComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<fromIncomeExpense.AppState>) { }
 
   ngOnInit() {
     this.subscription = this.store.select('incomeExpense').subscribe(incomeExpense => {

@@ -123,12 +123,12 @@ export class AuthService {
       .auth
       .signOut()
       .then(() => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/auth/login']);
         this.store.dispatch(new SetUserAction(null));
         this.store.dispatch(new DeactivateLoadingAction());
       })
       .catch(error => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/auth/login']);
         this.store.dispatch(new SetUserAction(null));
         this.store.dispatch(new DeactivateLoadingAction());
       });
@@ -139,7 +139,7 @@ export class AuthService {
       map(fbUser => {
         const isAuthenticated = fbUser !== null;
         if (!isAuthenticated) {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/auth/login']);
         }
         return isAuthenticated;
       })
